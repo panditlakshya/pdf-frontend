@@ -1,7 +1,7 @@
 export const APPLICATIONS = [
   {
     id: 1,
-    name: "PDF",
+    name: "PDF Questionaire",
   },
   {
     id: 2,

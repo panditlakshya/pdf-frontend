@@ -1,8 +1,12 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, FileText, Plus, User2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -16,9 +20,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { APPLICATIONS } from "@/const";
 import useSidebar from "@/hooks/use-sidebar";
+import usePDFUploader from "@/hooks/usePDFfile";
 
 const AppSidebar = () => {
   const { app, setApp } = useSidebar();
+  const { pdfFile } = usePDFUploader();
 
   const selectedApp = APPLICATIONS.find(
     (application) => application.id === app
@@ -51,10 +57,36 @@ const AppSidebar = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent></SidebarContent>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Uploaded pdfs</SidebarGroupLabel>
+          <SidebarGroupAction title="Add Project">
+            <Plus /> <span className="sr-only">Add pdfs</span>
+          </SidebarGroupAction>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {pdfFile.map((item) => (
+                <SidebarMenuItem key={item.name}>
+                  <SidebarMenuButton asChild isActive={false}>
+                    <a>
+                      <FileText />
+                      <span>{item.name}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>Lakshya</SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <User2 size={30} />
+              <span className="text-lg">Lakshya</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
